@@ -2,22 +2,16 @@
 
 import { Auth } from "@/components/providers/auth-provider"
 import { SignOutButton } from "@/firebase/components/signOut";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { redirect } from "next/navigation";
+import { useContext } from "react";
 
 const MainPage = () => {
     const { isAuthenticated } = useContext(Auth);
-    const router = useRouter();
 
     if(!isAuthenticated){
-        router.push("/");
+      return redirect("/");
     }
 
-// useEffect(() => {
-//     if(!isAuthenticated){
-//         router.push("/");
-//     }
-// }, []);
 
   return (
     <div>MainPage
