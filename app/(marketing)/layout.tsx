@@ -1,6 +1,6 @@
 import { Navbar } from "./_components/navbar";
 
-const Marketinglayout = (
+const Landinglayout = (
     {children
     } : {children: React.ReactNode}) => {
     return( 
@@ -13,4 +13,4 @@ const Marketinglayout = (
     );
 }
 
-export default Marketinglayout;
+export default Landinglayout;
