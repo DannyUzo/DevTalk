@@ -1,5 +1,7 @@
 "use client";
 
+import { Logo } from "@/app/(marketing)/_components/logo";
+import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 
 interface NavbarProps {
@@ -8,14 +10,14 @@ interface NavbarProps {
 }
 export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
   return (
-    <div>
-      {isCollapsed && (
+    <div className="w-full p-2 flex items-center justify-between border">
         <div
-          onClick={expandPanel}
+        className={cn("opacity-0 flex gap-2", isCollapsed && "opacity-100 cursor-pointer")}
+        // className={cn("hidden transition-all", isCollapsed && "flex cursor-pointer")}
         >
-            <Menu/>
+            <Menu onClick={expandPanel}/>
+            <Logo />
         </div>
-      )}
       <div>Navbar</div>
     </div>
   );

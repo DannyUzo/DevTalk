@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 
 const font = Poppins({
   subsets: ["latin"],
-  weight: ["300", "500"],
+  weight: ["200", "400"],
 });
 
 export const Logo = () => {
   return (
-    <div className="hidden items-center gap-x-2 sm:flex">
+    <div className="hidden items-center shrink gap-x-2 sm:flex">
       <p className={cn("font-semibold", font.className)}>
         <span>{"< "}</span>
         DevTalk
