@@ -41,9 +41,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <ResizablePanel
         id="nav"
         ref={panelRef}
-        defaultSize={25}
-        minSize={10}
-        maxSize={32}
+        defaultSize={20}
+        minSize={15}
+        maxSize={30}
         className="h-full"
         collapsible
       >

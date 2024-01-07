@@ -16,6 +16,6 @@ export const SignOutButton = () => {
     }
 
     return (
-        <Button onClick={LogOut} variant="outline">Log Out</Button>
+        <Button onClick={LogOut} variant="ghost">Log Out</Button>
     )
 }

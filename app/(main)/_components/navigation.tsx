@@ -14,7 +14,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
   }, [collapsePanel]);
 
   return (
-    <aside className="group/sidebar h-full overflow-y-auto flex relative flex-col z-[99999]">
+    <aside className="group/sidebar h-[100vh] overflow-y-auto flex relative justify-between flex-col z-[99999]">
       <div>
         <div
           onClick={handleClick}
@@ -29,17 +29,17 @@ export const Navigation = ({ collapsePanel }: Props) => {
           <Logo/>
         </div>
       </div>
-      <div className="flex flex-col">
-        <Link href="/dashboard" passHref>
-          <Home className="h-5 w-5"/>
+      <div className="flex flex-col w-full items-center gap-y-5 py-3">
+        <Link href="/dashboard" passHref className={cn("flex rounded-lg border text-xl items-center gap-2 w-40 text-slate-800 px-5 py-2")}>
+          {/* <Home className="h-5 w-5"/> */}
           Home
         </Link>
-        <Link href="/createpost" passHref>
-          <PlusSquare className="h-5 w-5"/>
+        <Link href="/createpost" passHref className={cn("flex rounded-lg border text-xl items-center gap-2 w-40 text-slate-800 px-5 py-2")}>
+          {/* <PlusSquare className="h-5 w-5"/> */}
           CreatePost
         </Link>
-        <Link href="/history" passHref>
-          <FolderClock className="h-5 w-5"/>
+        <Link href="/history" passHref className={cn("flex rounded-lg border text-xl items-center gap-2 w-40 text-slate-800 px-5 py-2")}>
+          {/* <FolderClock className="h-5 w-5"/> */}
           History
         </Link>
       </div>

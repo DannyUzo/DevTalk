@@ -18,6 +18,7 @@ export const SignInWithGoogle = () => {
         setIsAuthenticated(true);
         router.push("/dashboard");
         signUp.onClose();
+        console.log(auth.currentUser);
       })
       .catch((error) => {
         console.error("Error signing in with Google:", error);
