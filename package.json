@@ -29,6 +29,7 @@
     "sonner": "^1.2.4",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
+    "usehooks-ts": "^2.9.2",
     "vaul": "^0.8.0",
     "zustand": "^4.4.7"
   },
