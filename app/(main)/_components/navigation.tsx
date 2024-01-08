@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useMediaQuery } from "usehooks-ts";
 import { ChevronsLeft, FolderClock, Home, PenLine } from "lucide-react";
 import Link from "next/link";
+import { ModeToggleButton } from "./mode-toggle-button";
 interface Props {
   collapsePanel: () => void;
 }
@@ -75,6 +76,9 @@ export const Navigation = ({ collapsePanel }: Props) => {
             History
           </span>
         </Link>
+      </div>
+      <div className="p-10">
+        <ModeToggleButton />
       </div>
     </aside>
   );
