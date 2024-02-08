@@ -14,7 +14,7 @@ export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
     <div className="w-full p-2 flex items-center justify-between border">
         <div
         // className={cn("opacity-0 flex gap-2", isCollapsed && "opacity-100 cursor-pointer")}
-        className={cn("hidden transition-all", isCollapsed && "flex cursor-pointer")}
+        className={cn("hidden transition-all", isCollapsed && "flex cursor-pointer gap-x-3")}
         >
             <Menu onClick={expandPanel}/>
             <Logo />

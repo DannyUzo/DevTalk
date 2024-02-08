@@ -48,7 +48,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
           )}
         >
           <Home className="h-5 w-5" />
-          <span className={cn("text-lg lg:text-xl text-slate-800", isMobile && "hidden")}>
+          <span className={cn("text-lg lg:text-xl text-slate-800 dark:text-white", isMobile && "hidden")}>
             Home
           </span>
         </Link>
@@ -60,7 +60,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
           )}
         >
           <PenLine className="h-5 w-5" />
-          <span className={cn("text-lg md:text-xl text-slate-800", isMobile && "hidden")}>
+          <span className={cn("text-lg md:text-xl text-slate-800 dark:text-white", isMobile && "hidden")}>
             CreatePost
           </span>
         </Link>
@@ -71,14 +71,14 @@ export const Navigation = ({ collapsePanel }: Props) => {
             "flex rounded-lg border text-xl items-center gap-2 w-50 text-slate-800 px-5 py-2"
           )}
         >
-          <FolderClock className="h-5 w-5" />
-          <span className={cn("text-lg md:text-xl text-slate-800", isMobile && "hidden")}>
+          <FolderClock className="h-5 w-5 dark:text-white" />
+          <span className={cn("text-lg md:text-xl text-slate-800 dark:text-white", isMobile && "hidden")}>
             History
           </span>
         </Link>
       </div>
-      <div className="p-10">
-        <ModeToggleButton />
+      <div className="md:p-10">
+        {/* <ModeToggleButton /> */}
       </div>
     </aside>
   );

@@ -54,18 +54,18 @@ export const UserButton = () => {
         <div className="flex p-2 gap-5">
           <Avatar className="w-12 h-12 rounded-full">
             <AvatarImage src={user?.imgUrl || undefined} alt="" />
-            <AvatarFallback>{user?.initials}</AvatarFallback>
+            <AvatarFallback className="rounded-full w-10 h-10">{user?.initials}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="font-bold text-xl">{user?.displayName}</span>
-            <span className="text-muted-foreground/90 text-base">
+            <span className="font-semibold text-lg">{user?.displayName}</span>
+            <span className="text-muted-foreground/90 text-sm">
               {user?.email}
             </span>
           </div>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="mr-2 h-4 w-4 hover:mr-4" />
           <SignOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
