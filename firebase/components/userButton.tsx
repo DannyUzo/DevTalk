@@ -65,7 +65,7 @@ export const UserButton = () => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4 hover:mr-4" />
+          <LogOut className="mr-4 h-4 w-4 " />
           <SignOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
