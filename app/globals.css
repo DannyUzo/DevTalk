@@ -75,9 +75,8 @@
   }
 }
 .toggle {
-  background-color: #fff;
-  width: 46px;
-  height: 46px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: grid;
   border: 1px solid #eeeeee;
@@ -97,7 +96,7 @@
 }
 
 .icon--moon {
-  transition-delay: 200ms;
+  transition-delay: 2000ms;
 }
 
 .icon--sun {
@@ -111,7 +110,7 @@
   background-color: #1f1f1f;
 }
 #switch:checked ~ .icon--sun {
-  transition-delay: 200ms;
+  transition-delay: 2000ms;
   transform: scale(1) rotate(360deg);
 }
 
