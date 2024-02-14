@@ -7,11 +7,13 @@ import { useMediaQuery } from "usehooks-ts";
 import { ChevronsLeft, FolderClock, Home, PenLine } from "lucide-react";
 import Link from "next/link";
 import { ModeToggleButton } from "./mode-toggle-button";
+import { usePathname } from "next/navigation";
 interface Props {
   collapsePanel: () => void;
 }
 export const Navigation = ({ collapsePanel }: Props) => {
   const isMobile = useMediaQuery("(max-width: 868px)");
+  const pathname = usePathname();
 
   useEffect(() => {
     if (isMobile) {
@@ -68,7 +70,9 @@ export const Navigation = ({ collapsePanel }: Props) => {
           href="/history"
           passHref
           className={cn(
-            "flex rounded-lg border text-xl items-center gap-2 w-50 text-slate-800 px-5 py-2"
+            "flex rounded-lg border text-xl items-center gap-2 w-50 text-slate-800 px-5 py-2",
+            pathname.startsWith("/history") &&
+            "bg-[#f9f9f9]"
           )}
         >
           <FolderClock className="h-5 w-5 dark:text-white" />
