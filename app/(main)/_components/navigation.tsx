@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { useMediaQuery } from "usehooks-ts";
 import { ChevronsLeft, FolderClock, Home, PenLine } from "lucide-react";
 import Link from "next/link";
-import { ModeToggleButton } from "./mode-toggle-button";
 import { usePathname } from "next/navigation";
 interface Props {
   collapsePanel: () => void;
@@ -46,7 +45,9 @@ export const Navigation = ({ collapsePanel }: Props) => {
           href="/dashboard"
           passHref
           className={cn(
-            "flex rounded-lg border items-center gap-2 w-50 px-5 py-2"
+            "flex rounded-lg border items-center gap-2 w-50 px-5 py-2",
+            pathname.startsWith("/dashboard") &&
+            "bg-[#f9f9f9] dark:bg-zinc-900"
           )}
         >
           <Home className="h-5 w-5" />
@@ -58,7 +59,9 @@ export const Navigation = ({ collapsePanel }: Props) => {
           href="/createpost"
           passHref
           className={cn(
-            "flex rounded-lg border items-center gap-2 w-50  px-5 py-2"
+            "flex rounded-lg border items-center gap-2 w-50  px-5 py-2",
+            pathname.startsWith("/createpost") &&
+            "bg-[#f9f9f9] dark:bg-zinc-900"
           )}
         >
           <PenLine className="h-5 w-5" />
@@ -72,7 +75,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
           className={cn(
             "flex rounded-lg border text-xl items-center gap-2 w-50 text-slate-800 px-5 py-2",
             pathname.startsWith("/history") &&
-            "bg-[#f9f9f9]"
+            "bg-[#f9f9f9] dark:bg-zinc-900"
           )}
         >
           <FolderClock className="h-5 w-5 dark:text-white" />
@@ -82,7 +85,6 @@ export const Navigation = ({ collapsePanel }: Props) => {
         </Link>
       </div>
       <div className="md:p-10">
-        {/* <ModeToggleButton /> */}
       </div>
     </aside>
   );
