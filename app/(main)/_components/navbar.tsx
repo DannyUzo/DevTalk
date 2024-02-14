@@ -5,6 +5,7 @@ import { UserButton } from "@/firebase/components/userButton";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useParams } from "next/navigation";
+import { ModeToggleButton } from "./mode-toggle-button";
 
 interface NavbarProps {
   expandPanel: () => void;
@@ -14,15 +15,21 @@ export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
   const params = useParams();
   return (
     <div className="w-full p-2 flex items-center justify-between border-b">
-        <div
+      <div
         // className={cn("opacity-0 flex gap-2", isCollapsed && "opacity-100 cursor-pointer")}
-        className={cn("hidden transition-all", isCollapsed && "flex cursor-pointer gap-x-3")}
-        >
-            <Menu onClick={expandPanel}/>
-            <Logo />
-        </div>
+        className={cn(
+          "hidden transition-all",
+          isCollapsed && "flex cursor-pointer gap-x-3"
+        )}
+      >
+        <Menu onClick={expandPanel} />
+        <Logo />
+      </div>
       <div>Navbar</div>
-      <UserButton />
+      <div className="flex gap-3">
+        <ModeToggleButton />
+        <UserButton />
+      </div>
     </div>
   );
 };
