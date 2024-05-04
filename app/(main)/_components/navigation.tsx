@@ -40,7 +40,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
           <Logo />
         </div>
       </div>
-      <div className="flex flex-col w-full items-center gap-y-5 py-3">
+      <div className="flex flex-col w-full items-center gap-y-5 py-3 px-5">
         <Link
           href="/dashboard"
           passHref
