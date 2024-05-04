@@ -1,22 +1,78 @@
-"use client"
+"use client";
 
-import { Auth } from "@/components/providers/auth-provider"
+import { useState, useEffect } from "react";
+import { Auth } from "@/components/providers/auth-provider";
 import { redirect } from "next/navigation";
 import { useContext } from "react";
+import { db } from "@/firebase/firebase-config";
+import { getDocs, collection } from "firebase/firestore";
+import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const MainPage = () => {
-    const { isAuthenticated } = useContext(Auth);
-
-    if(!isAuthenticated){
-      return redirect("/");
-    }
-
-
-  return (
-    <div className="w-full h-full items-center justify-center">MainPage
-
-    </div>
-  )
+interface DocumentProps {
+  id: string;
+  Title: string;
+  Content: string;
+  content?: any;
 }
 
-export default MainPage
+const MainPage = () => {
+  const { isAuthenticated } = useContext(Auth);
+  const [allPosts, setAllPosts] = useState<DocumentProps[]>([]);
+
+  const collectionRef = collection(db, "posts");
+  const getAllPosts = async (): Promise<void> => {
+    try {
+      const data = await getDocs(collectionRef);
+      const posts: DocumentProps[] = data.docs.map((doc) => {
+        // Use the DocumentProps type for `doc.data()`
+        const docData = doc.data() as DocumentProps;
+        return { ...docData, id: doc.id };
+      });
+      setAllPosts(posts);
+      console.log(posts);
+    } catch (error) {
+      console.error("Error fetching Data:", error);
+      toast.error("Failed to fetch data");
+    }
+  };
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  if (!isAuthenticated) {
+    return redirect("/");
+  }
+
+  if (allPosts.length == 0) {
+    return (
+      <div>
+        <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10">
+          <div className="space-y-4 pl-8 pt-4 w-full flex flex-col items-center justify-center">
+            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
+            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
+            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
+            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full h-full items-center justify-center">
+      MainPage
+      <div>
+        {allPosts.map((post) => (
+          <div key={post.id}>
+            <h2>{post.Title}</h2>
+            <h2>{post.Content.content.text}</h2>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MainPage;
