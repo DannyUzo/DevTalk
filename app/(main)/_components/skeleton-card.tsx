@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const SkeletonCard = () => (
-  <div className="w-[85%] sm:w-[55%] md:max-w-3xl lg:max-w-4xl h-60 flex flex-col justify-between rounded-md p-3 bg-[#f6f6f6] dark:bg-muted/70">
+  <div className="w-[85%] sm:w-[55%] md:max-w-3xl lg:max-w-4xl h-60 flex flex-col justify-between rounded-md p-3 bg-[#fcfcfc] dark:bg-muted/70">
     <div className="w-full flex justify-between">
       <div className="flex items-center gap-x-2">
         <Skeleton className="w-12 h-12 rounded-full bg-[#ebeaea] dark:bg-muted/75" />
