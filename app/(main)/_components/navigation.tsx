@@ -25,7 +25,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
   }, [collapsePanel]);
 
   return (
-    <aside className="group/sidebar h-[100vh] overflow-y-auto flex relative justify-between flex-col z-[99999]">
+    <aside className="group/sidebar h-[100vh] overflow-y-auto flex  justify-between flex-col z-[99999]">
       <div>
         <div
           onClick={handleClick}
