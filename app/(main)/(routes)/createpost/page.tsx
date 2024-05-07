@@ -10,6 +10,7 @@ import TextareaAutoSize from "react-textarea-autosize";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 // export const metadata: Metadata = {
 //   title: "DevTalk | CreatePost",
@@ -21,6 +22,7 @@ const CreatePost = () => {
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
 
+  const Router = useRouter();
   const collectionRef = collection(db, "posts");
 
   const Editor = useMemo(
@@ -34,6 +36,7 @@ const CreatePost = () => {
         Title: postTitle,
         Content: postContent,
       });
+      Router.push("/dashboard");
       toast.success("Post Created!");
       console.log(postContent);
     } catch (err) {
