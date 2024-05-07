@@ -37,14 +37,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <ResizablePanelGroup direction="horizontal" className="w-full h-full">
+    <ResizablePanelGroup direction="horizontal" className="w-full h-[100vh]">
       <ResizablePanel
         id="nav"
         ref={panelRef}
         defaultSize={25}
         minSize={18}
         maxSize={30}
-        className="h-full"
+        className="h-auto"
         collapsible
       >
         <Navigation collapsePanel={collapsePanel} />
@@ -53,7 +53,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <ResizablePanel defaultSize={75}>
         <main className="flex h-full w-full flex-col ">
           <Navbar isCollapsed={isCollapsed} expandPanel={expandPanel} />
-          <div>{children}</div>
+          <div className="mt-20">{children}</div>
         </main>
       </ResizablePanel>
     </ResizablePanelGroup>
