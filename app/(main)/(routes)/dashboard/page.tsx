@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { db } from "@/firebase/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
+import { SkeletonCard } from "../../_components/skeleton-card";
 
 interface DocumentProps {
   id: string;
@@ -50,10 +50,11 @@ const MainPage = () => {
       <div>
         <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10">
           <div className="space-y-4 pl-8 pt-4 w-full flex flex-col items-center justify-center">
-            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
-            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
-            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
-            <Skeleton className="h-40 w-[75%] sm:w-[50%]" />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
           </div>
         </div>
       </div>
@@ -67,7 +68,7 @@ const MainPage = () => {
         {allPosts.map((post) => (
           <div key={post.id}>
             <h2>{post.Title}</h2>
-            <h2>{post.Content.content.text}</h2>
+            <h2>{post.Content[0].content[0].text}</h2>
           </div>
         ))}
       </div>
