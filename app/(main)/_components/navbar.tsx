@@ -14,7 +14,7 @@ interface NavbarProps {
 export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
   const params = useParams();
   return (
-    <div className="w-full p-2 flex items-center justify-between fixed border-b">
+    <div className="w-full p-2 flex items-center justify-between fixed border-b backdrop-filter backdrop-grayscale backdrop-blur-xl ">
       <div
         className={cn(
           "hidden transition-all",
