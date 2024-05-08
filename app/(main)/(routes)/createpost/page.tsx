@@ -45,6 +45,7 @@ const CreatePost = () => {
     }
   };
 
+
   const enableInput = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -81,7 +82,7 @@ const CreatePost = () => {
         </h2>
         <Button onClick={onPost}>Post</Button>
       </div>
-      <div className="w-[80%] md:max-w-3xl lg:max-w-4xl mx-auto mt-12">
+      <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-12">
         <div className="flex flex-col items-center">
           {!isEditing ? (
             <TextareaAutoSize
