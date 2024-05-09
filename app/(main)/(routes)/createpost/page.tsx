@@ -3,7 +3,7 @@
 // import type{ Metadata } from "next"
 
 import { ElementRef, useRef, useState, useMemo } from "react";
-import { db } from "@/firebase/firebase-config";
+import { db, auth } from "@/firebase/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 import { toast } from "sonner";
 import TextareaAutoSize from "react-textarea-autosize";
@@ -25,6 +25,8 @@ const CreatePost = () => {
   const Router = useRouter();
   const collectionRef = collection(db, "posts");
 
+  const author = auth.currentUser?.displayName;
+
   const Editor = useMemo(
     () => dynamic(() => import("@/components/editor"), { ssr: false }),
     []
@@ -35,6 +37,7 @@ const CreatePost = () => {
       await addDoc(collectionRef, {
         Title: postTitle,
         Content: postContent,
+        Author: author,
       });
       Router.push("/dashboard");
       toast.success("Post Created!");
