@@ -26,6 +26,7 @@ const CreatePost = () => {
   const collectionRef = collection(db, "posts");
 
   const author = auth.currentUser?.displayName;
+  const authorImg = auth.currentUser?.photoURL;
 
   const Editor = useMemo(
     () => dynamic(() => import("@/components/editor"), { ssr: false }),
@@ -38,6 +39,7 @@ const CreatePost = () => {
         Title: postTitle,
         Content: postContent,
         Author: author,
+        AuthorImg: authorImg,
       });
       Router.push("/dashboard");
       toast.success("Post Created!");
