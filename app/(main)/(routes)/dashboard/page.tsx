@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { db } from "@/firebase/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { toast } from "sonner";
-import { SkeletonCard } from "../../_components/skeleton-card";
+import { SkeletonCard } from "@/components/skeleton-card";
 
 interface DocumentProps {
   id: string;
