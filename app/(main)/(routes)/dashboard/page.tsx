@@ -8,12 +8,14 @@ import { db } from "@/firebase/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { toast } from "sonner";
 import { SkeletonCard } from "@/components/skeleton-card";
+import { PostCard } from "../../_components/post-card";
 
 interface DocumentProps {
   id: string;
   Title: string;
   Content: string;
-  content?: any;
+  Author: string;
+  AuthorImg: string;
 }
 
 const MainPage = () => {
@@ -67,8 +69,7 @@ const MainPage = () => {
       <div>
         {allPosts.map((post) => (
           <div key={post.id}>
-            <h2>{post.Title}</h2>
-            <h2>{post.Content[0].content[0].text}</h2>
+            <PostCard Title={post.Title} Author={post.Author} AuthorImg={post.AuthorImg}/>
           </div>
         ))}
       </div>
