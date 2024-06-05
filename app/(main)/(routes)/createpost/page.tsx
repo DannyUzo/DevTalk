@@ -107,7 +107,9 @@ const CreatePost = () => {
             </div>
           )}
         </div>
+        <div className="-ml-12">
         <Editor onChange={onChange} initialContent={postContent} />
+        </div>
       </div>
     </div>
   );
