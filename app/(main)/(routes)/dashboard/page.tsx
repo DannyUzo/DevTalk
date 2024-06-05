@@ -66,9 +66,9 @@ const MainPage = () => {
   return (
     <div className="w-full h-full items-center justify-center">
       MainPage
-      <div>
+      <div className="flex flex-col items-center justify-center">
         {allPosts.map((post) => (
-          <div key={post.id}>
+          <div key={post.id} className="flex flex-col gap-y-4">
             <PostCard Title={post.Title} Author={post.Author} AuthorImg={post.AuthorImg}/>
           </div>
         ))}
