@@ -10,14 +10,14 @@ interface CardProps {
 
 export const PostCard = ({ Title, Author, AuthorImg }: CardProps) => {
     return (
-        <Card className="w-70 sm:w-[480px] flex flex-col justify-between p-0">
+        <Card className="w-70 sm:w-[480px] flex flex-col justify-between gap-5">
             <CardHeader>
-                <div className="flex">
+                <div className="flex gap-2">
                 <Avatar>
                     <AvatarImage src={AuthorImg} alt="display picture"/>
                     <AvatarFallback>DT</AvatarFallback>
                 </Avatar>
-                <CardDescription>{Author}</CardDescription>
+                <CardDescription className="text-lg">{Author}</CardDescription>
                 </div>
                 <CardTitle>{Title}</CardTitle>
             </CardHeader>
