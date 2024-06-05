@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator";
 
 interface CardProps {
     Title: string;
@@ -19,6 +20,7 @@ export const PostCard = ({ Title, Author, AuthorImg }: CardProps) => {
                 </Avatar>
                 <CardDescription className="text-lg">{Author}</CardDescription>
                 </div>
+                <Separator />
                 <CardTitle>{Title}</CardTitle>
             </CardHeader>
             <CardContent>
