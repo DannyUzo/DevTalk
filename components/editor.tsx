@@ -11,9 +11,8 @@ interface EditorProps {
     editable?: boolean;
 }
  const Editor = ({onChange, initialContent, editable}: EditorProps) => {
-    const { resolvedTheme } = useTheme()
+    const { resolvedTheme } = useTheme();
 
-    // const editor = useBlockNote();
 
     const editor: BlockNoteEditor = useBlockNote({
         editable,
