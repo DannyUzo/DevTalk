@@ -1,11 +1,12 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase/firebase-config";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-
+import { Star } from "lucide-react";
 
 interface ContentItem {
   type: string; // Adjust based on actual content structure
@@ -23,7 +24,10 @@ interface DocumentProps {
 
 const PostPage = ({ params }: { params: { postId: string } }) => {
   const [post, setPost] = useState<DocumentProps | null>(null);
-    const Editor = useMemo(() => dynamic(() => import("@/components/editor"), { ssr: false }), []);
+  const Editor = useMemo(
+    () => dynamic(() => import("@/components/editor"), { ssr: false }),
+    []
+  );
 
   const postRef = doc(db, "posts", params.postId);
 
@@ -47,34 +51,30 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
   }, []);
 
   const onChange = (content: string) => {
-  
-console.log(post);
+    console.log(post);
   };
 
   return (
-    <div>
-      <h1>{post?.Title}</h1>
-      <p>{post?.Author}</p>
-      <img src={post?.AuthorImg} alt="Author" />
-
-      <div>
-        <Editor editable={false} onChange={onChange} initialContent={post?.Content}/>
-
-        {post?.Content.map((item, index) => (
-          <div key={index}>
-            {/* Render content based on its type */}
-            {item.type === 'text' ? (
-              <p>{item.content}</p>
-            ) : item.type === 'image' ? (
-              <img src={item.content} alt={`Content ${index}`} />
-            ) : (
-              <div>Unsupported content type</div>
-            )}
-          </div>
-        ))}
+    <div className="w-[70%] pb-60 flex flex-col items-center jusify-center">
+      <div className="w-full flex gap-2 p-5">
+<div>
+      <Avatar className="w-10 h-10">
+        <AvatarImage src={post?.AuthorImg} alt="display picture" />
+        <AvatarFallback>DT</AvatarFallback>
+      </Avatar>
+      <h2 className="text-lg font-semibold">{post?.Author}</h2>
+</div>
+  <Star />
       </div>
 
-      <div>Dynamic post page</div>
+      <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
+      <h1 className="text-3xl font-semibold">{post?.Title}</h1>
+        <Editor
+          editable={false}
+          onChange={onChange}
+          initialContent={post?.Content}
+        />
+      </div>
     </div>
   );
 };
