@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 
 interface EditorProps {
     onChange: (value: string) => void,
-    initialContent?: string;
+    initialContent?: string | any[];
     editable?: boolean;
 }
  const Editor = ({onChange, initialContent, editable}: EditorProps) => {
