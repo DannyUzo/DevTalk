@@ -68,7 +68,7 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
       </div>
 
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-      <h1 className="text-3xl font-semibold">{post?.Title}</h1>
+      <h1 className="text-4xl font-semibold">{post?.Title}</h1>
         <Editor
           editable={false}
           onChange={onChange}
