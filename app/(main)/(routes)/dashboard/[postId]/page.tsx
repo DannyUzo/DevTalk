@@ -55,20 +55,20 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
   };
 
   return (
-    <div className="w-[70%] pb-60 flex flex-col items-center jusify-center">
-      <div className="w-full flex gap-2 p-5">
-<div>
-      <Avatar className="w-10 h-10">
-        <AvatarImage src={post?.AuthorImg} alt="display picture" />
-        <AvatarFallback>DT</AvatarFallback>
-      </Avatar>
-      <h2 className="text-lg font-semibold">{post?.Author}</h2>
-</div>
-  <Star />
+    <div className="pb-60 flex flex-col items-center gap-10 px-10">
+      <div className="w-auto flex items-center gap-2 p-5">
+        <div>
+          <Avatar className="w-10 h-10">
+            <AvatarImage src={post?.AuthorImg} alt="display picture" />
+            <AvatarFallback>DT</AvatarFallback>
+          </Avatar>
+          <h2 className="text-lg font-semibold">{post?.Author}</h2>
+        </div>
+        <Star />
       </div>
 
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-      <h1 className="text-4xl font-semibold">{post?.Title}</h1>
+        <h1 className="text-4xl font-semibold">{post?.Title}</h1>
         <Editor
           editable={false}
           onChange={onChange}
