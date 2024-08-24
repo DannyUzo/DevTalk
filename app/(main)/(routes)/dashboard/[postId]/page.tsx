@@ -56,8 +56,8 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
 
   return (
     <div className="pb-60 flex flex-col items-center gap-10 px-10">
-      <div className="w-auto flex items-center justify-between gap-2 p-5">
-        <div>
+      <div className="w-full flex items-center justify-between gap-2 p-5 md:max-w-3xl lg:max-w-4xl mx-auto">
+        <div className="flex items-center gap-4">
           <Avatar className="w-10 h-10">
             <AvatarImage src={post?.AuthorImg} alt="display picture" />
             <AvatarFallback>DT</AvatarFallback>
