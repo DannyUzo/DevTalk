@@ -15,6 +15,7 @@ interface DocumentProps {
   Title: string;
   Content: string;
   Author: string;
+  AuthorId: string;
   AuthorImg: string;
 }
 
@@ -68,7 +69,7 @@ const MainPage = () => {
       <div className="flex flex-col items-center justify-center gap-y-4">
         {allPosts.map((post) => (
           <div key={post.id} >
-            <PostCard Id={post.id} Title={post.Title} Author={post.Author} AuthorImg={post.AuthorImg}/>
+            <PostCard Id={post.id} Title={post.Title} Author={post.Author} AuthorImg={post.AuthorImg} AuthorId={post.AuthorId}/>
           </div>
         ))}
       </div>
