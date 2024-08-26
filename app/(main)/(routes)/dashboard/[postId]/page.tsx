@@ -68,7 +68,7 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
           <h2 className="text-lg font-semibold">{post?.Author}</h2>
         </div>
         <div className="flex items-center space-evenly">
-          <Share postId={post?.id || ""} />
+          <Share postId={params.postId} />
           {post?.AuthorId === auth?.currentUser?.uid && <Menu />}
         </div>
       </div>
