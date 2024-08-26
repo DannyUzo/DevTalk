@@ -52,7 +52,7 @@ export const PostCard = ({
         <Separator />
         <CardTitle
           onClick={viewpost}
-          className="text-base hover:underline cursor-pointer tracking-wide"
+          className="hover:underline cursor-pointer tracking-wide"
         >
           {Title}
         </CardTitle>
