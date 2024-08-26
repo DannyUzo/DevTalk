@@ -22,7 +22,7 @@ export const Menu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="sm" variant="ghost">
+        <Button size="tn" variant="ghost">
           <MoreHorizontal className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>

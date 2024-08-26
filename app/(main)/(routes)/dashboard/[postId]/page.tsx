@@ -6,7 +6,9 @@ import { db } from "@/firebase/firebase-config";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-import { Star } from "lucide-react";
+import { auth } from "@/firebase/firebase-config";
+import { Menu } from "@/app/(main)/_components/menu";
+import { Share } from "@/app/(main)/_components/share";
 
 interface ContentItem {
   type: string; // Adjust based on actual content structure
@@ -19,6 +21,7 @@ interface DocumentProps {
   Title: string;
   Content: ContentItem[];
   Author: string;
+  AuthorId: string;
   AuthorImg: string;
 }
 
@@ -64,7 +67,10 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
           </Avatar>
           <h2 className="text-lg font-semibold">{post?.Author}</h2>
         </div>
-        <Star />
+        <div className="flex items-center space-evenly">
+          <Share postId={post?.id || ""} />
+          {post?.AuthorId === auth?.currentUser?.uid && <Menu />}
+        </div>
       </div>
 
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">

@@ -10,8 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import { Menu } from "./menu";
 import { auth } from "@/firebase/firebase-config";
-import { Share2 } from "lucide-react";
-
+import { Share } from "@/app/(main)/_components/share";
 
 interface CardProps {
   Title: string;
@@ -21,7 +20,13 @@ interface CardProps {
   Id: string;
 }
 
-export const PostCard = ({ Title, Author, AuthorImg, AuthorId, Id }: CardProps) => {
+export const PostCard = ({
+  Title,
+  Author,
+  AuthorImg,
+  AuthorId,
+  Id,
+}: CardProps) => {
   const router = useRouter();
 
   const viewpost = () => {
@@ -39,15 +44,15 @@ export const PostCard = ({ Title, Author, AuthorImg, AuthorId, Id }: CardProps) 
             </Avatar>
             <CardDescription className="text-sm">{Author}</CardDescription>
           </div>
-          <Share2 />
-          {AuthorId === auth?.currentUser?.uid && (
-          <Menu />
-          )}
+          <div>
+            <Share postId={Id} />
+            {AuthorId === auth?.currentUser?.uid && <Menu />}
+          </div>
         </div>
         <Separator />
         <CardTitle
           onClick={viewpost}
-          className="text-base hover:underline cursor-pointer"
+          className="text-base hover:underline cursor-pointer tracking-wide"
         >
           {Title}
         </CardTitle>
