@@ -46,7 +46,7 @@ export const PostCard = ({
           </div>
           <div>
             <Share postId={Id} />
-            {AuthorId === auth?.currentUser?.uid && <Menu />}
+            {AuthorId === auth?.currentUser?.uid && <Menu postId={Id}/>}
           </div>
         </div>
         <Separator />

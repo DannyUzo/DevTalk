@@ -69,7 +69,7 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
         </div>
         <div className="flex items-center space-evenly">
           <Share postId={params.postId} />
-          {post?.AuthorId === auth?.currentUser?.uid && <Menu />}
+          {post?.AuthorId === auth?.currentUser?.uid && <Menu postId={params.postId}/>}
         </div>
       </div>
 
