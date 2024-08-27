@@ -35,21 +35,33 @@ const CreatePost = () => {
   );
 
   const onPost = async () => {
-    try {
-      await addDoc(collectionRef, {
-        Title: postTitle,
-        Content: postContent,
-        Author: author,
-        AuthorImg: authorImg,
-        AuthorId: authorId,
+    const promise = new Promise<void>(async (resolve, reject) => {
+      try {
+        await addDoc(collectionRef, {
+          Title: postTitle,
+          Content: postContent,
+          Author: author,
+          AuthorImg: authorImg,
+          AuthorId: authorId,
+        });
+        resolve();  // Resolves if the post is successfully created
+      } catch (err) {
+        reject(err);  // Rejects if there's an error creating the post
+      }
+    });
+    
+      toast.promise(promise, {
+        loading: "Creating post...",
+        success: "Post Created!",
+        error: "Failed to create post."
       });
-      Router.push("/dashboard");
-      toast.success("Post Created!");
-      console.log(postContent);
-    } catch (err) {
-      toast.error("Failed to create post.");
-      console.log(err);
-    }
+    
+      promise.then(() => {
+        Router.push("/dashboard");  // Redirect to the dashboard page on success
+        console.log(postContent);
+      }).catch((err) => {
+        console.log(err);
+      });
   };
 
 
@@ -109,7 +121,7 @@ const CreatePost = () => {
             </div>
           )}
         </div>
-        <div className="ml-12">
+        <div className="-ml-12 md:max-w-3xl lg:max-w-4xl">
         <Editor onChange={onChange} initialContent={postContent} />
         </div>
       </div>
