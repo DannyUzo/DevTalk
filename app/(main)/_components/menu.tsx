@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { auth } from "@/firebase/firebase-config";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { auth, db } from "@/firebase/firebase-config";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,14 +11,44 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import { MoreHorizontal, PenSquare, Trash, } from "lucide-react";
+import { MoreHorizontal, PenSquare, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { deleteDoc, doc } from "firebase/firestore";
+import ConfirmModal from "@/components/modals/confirm-modal";
 
+interface MenuProps {
+  postId: string;
+}
 
-
-export const Menu = () => {
+export const Menu: React.FC<MenuProps> = ({ postId }) => {
   const router = useRouter();
+
+  // const deletePost = async (postId: string) => {
+  //   const userDoc = doc(db, "posts", postId);
+  //   await deleteDoc(userDoc);
+  // };
+
+  const deletePost = async (postId: string, router: AppRouterInstance) => {
+    const promise: Promise<void> = new Promise(async (resolve, reject) => {
+      try {
+        const userDoc = doc(db, "posts", postId);
+        await deleteDoc(userDoc);
+        resolve();  // Resolves without any value
+      } catch (error) {
+        reject(error);  // Rejects with an error
+      }
+    });
+  
+    toast.promise(promise, {
+      loading: "Deleting note...",
+      success: "Note deleted!",
+      error: "Failed to delete note."
+    });
+  
+    promise.then(() => {
+      router.push('/dashboard'); 
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -33,14 +64,20 @@ export const Menu = () => {
         forceMount
       >
         <DropdownMenuItem onClick={() => {}}>
-        <PenSquare className="h-4 w-4 mr-2"/>
+          <PenSquare className="h-4 w-4 mr-2" />
           Edit
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => {}}>
-          <Trash className="h-4 w-4 mr-2" />
-          Delete
-        </DropdownMenuItem>
+            <ConfirmModal onConfirm={() => deletePost(postId, router)}>
+          <div className=
+      "relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground hover:bg-gray-100 dark:hover:bg-zinc-800"
+          >
+              <div className="flex items-center">
+                <Trash className="h-4 w-4 mr-2" />
+                Delete
+              </div>
+          </div>
+            </ConfirmModal>
         <DropdownMenuSeparator />
         <div className="text-sm text-muted-foreground p-2">
           Last edited by: {auth.currentUser?.displayName}
@@ -48,8 +85,4 @@ export const Menu = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
-
-Menu.Skeleton = function MenuSkeleton() {
-  return <Skeleton className="h-6 w-6 rounded" />;
 };
