@@ -5,7 +5,7 @@ import { Auth } from "@/components/providers/auth-provider";
 import { redirect } from "next/navigation";
 import { useContext } from "react";
 import { db } from "@/firebase/firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, orderBy } from "firebase/firestore";
 import { toast } from "sonner";
 import { SkeletonCard } from "@/components/skeleton-card";
 import { PostCard } from "../../_components/post-card";
@@ -17,6 +17,7 @@ interface DocumentProps {
   Author: string;
   AuthorId: string;
   AuthorImg: string;
+  CreatedAt: string;
 }
 
 const MainPage = () => {
@@ -69,7 +70,7 @@ const MainPage = () => {
       <div className="flex flex-col items-center justify-center gap-y-4">
         {allPosts.map((post) => (
           <div key={post.id} >
-            <PostCard Id={post.id} Title={post.Title} Author={post.Author} AuthorImg={post.AuthorImg} AuthorId={post.AuthorId}/>
+            <PostCard Id={post.id}  {...post}/>
           </div>
         ))}
       </div>
