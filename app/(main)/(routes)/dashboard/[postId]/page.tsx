@@ -11,9 +11,8 @@ import { Menu } from "@/app/(main)/_components/menu";
 import { Share } from "@/app/(main)/_components/share";
 
 interface ContentItem {
-  type: string; // Adjust based on actual content structure
+  type: string; 
   content: string;
-  // other fields if necessary
 }
 
 interface DocumentProps {
@@ -74,12 +73,14 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
       </div>
 
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-        <h1 className="text-4xl font-semibold">{post?.Title}</h1>
+        <h1 className="w-full text-4xl font-semibold">{post?.Title}</h1>
+        <div className="-ml-12">
         <Editor
           editable={false}
           onChange={onChange}
           initialContent={post?.Content}
         />
+        </div>
       </div>
     </div>
   );
