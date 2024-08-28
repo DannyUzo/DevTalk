@@ -65,7 +65,7 @@ export const PostCard = ({
     date.getFullYear() === now.getFullYear();
 
   if (diffInSeconds < 60) {
-    displayDate = "just now";
+    displayDate = "Just now";
   } else if (diffInMinutes < 60) {
     displayDate = `${diffInMinutes} min${diffInMinutes > 1 ? "s" : ""} ago`;
   } else if (isSameDay) {
