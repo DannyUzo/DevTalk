@@ -94,7 +94,7 @@ export const PostCard = ({
             </Avatar>
             <div className="flex flex-col justify-evenly">
               <CardDescription className="text-sm">{Author}</CardDescription>
-              <sub>{displayDate}</sub>
+              <CardDescription className="text-[12px]">{displayDate}</CardDescription>
             </div>
           </div>
           <div>
