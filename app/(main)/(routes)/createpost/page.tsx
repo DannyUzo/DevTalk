@@ -4,7 +4,7 @@
 
 import { ElementRef, useRef, useState, useMemo } from "react";
 import { db, auth } from "@/firebase/firebase-config";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "sonner";
 import TextareaAutoSize from "react-textarea-autosize";
 import { Button } from "@/components/ui/button";
@@ -43,6 +43,7 @@ const CreatePost = () => {
           Author: author,
           AuthorImg: authorImg,
           AuthorId: authorId,
+          CreatedAt: serverTimestamp(),
         });
         resolve();  // Resolves if the post is successfully created
       } catch (err) {
