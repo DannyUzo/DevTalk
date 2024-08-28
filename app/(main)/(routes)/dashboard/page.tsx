@@ -24,6 +24,8 @@ const MainPage = () => {
   const { isAuthenticated } = useContext(Auth);
   const [allPosts, setAllPosts] = useState<DocumentProps[]>([]);
 
+
+
   const collectionRef = collection(db, "posts");
   const getAllPosts = async (): Promise<void> => {
     try {
@@ -66,7 +68,7 @@ const MainPage = () => {
   }
 
   return (
-    <div className="w-full h-full items-center justify-center">
+    <div className="w-full h-full items-center justify-center p-4">
       <div className="flex flex-col items-center justify-center gap-y-4">
         {allPosts.map((post) => (
           <div key={post.id} >
