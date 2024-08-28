@@ -71,7 +71,6 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
           {post?.AuthorId === auth?.currentUser?.uid && <Menu postId={params.postId}/>}
         </div>
       </div>
-
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <h1 className="w-full text-4xl font-semibold">{post?.Title}</h1>
         <div className="-ml-12">
