@@ -102,7 +102,7 @@ const CreatePost = () => {
         </h2>
         <Button onClick={onPost}>Post</Button>
       </div>
-      <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-12">
+      <div className="md:max-w-2xl lg:max-w-3xl mx-auto mt-12">
         <div className="flex flex-col items-center">
           {!isEditing ? (
             <TextareaAutoSize
@@ -111,18 +111,18 @@ const CreatePost = () => {
               onKeyDown={onKeyDown}
               value={postTitle}
               onChange={(e) => onInput(e.target.value)}
-              className="text-3xl sm:text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+              className="text-3xl md:max-w-2xl lg:max-w-3xl sm:text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
             />
           ) : (
             <div
               onClick={enableInput}
-              className="pb-[11.5px] text-3xl sm:text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
+              className="pb-[11.5px] md:max-w-2xl lg:max-w-3xl text-3xl sm:text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
             >
               {postTitle}
             </div>
           )}
         </div>
-        <div className="-ml-12 md:max-w-3xl lg:max-w-4xl">
+        <div className="-ml-12 md:max-w-2xl lg:max-w-3xl">
         <Editor onChange={onChange} initialContent={postContent} />
         </div>
       </div>
