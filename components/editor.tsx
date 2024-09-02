@@ -23,7 +23,7 @@ interface EditorProps {
     })
 
     return (
-        <div>
+        <div className="md:max-w-2xl lg:max-w-3xl">
             <BlockNoteView editor={editor} theme={resolvedTheme === "dark" ? "dark" : "light"} />
         </div>
     )

@@ -50,6 +50,10 @@ export const Menu: React.FC<MenuProps> = ({ postId }) => {
     });
   };
 
+  const onEdit = () => {
+    router.push(`/edit/${postId}`)
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -63,10 +67,15 @@ export const Menu: React.FC<MenuProps> = ({ postId }) => {
         alignOffset={8}
         forceMount
       >
-        <DropdownMenuItem onClick={() => {}}>
+                <div onClick={onEdit} className=
+      "relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground hover:bg-gray-100 dark:hover:bg-zinc-800"
+          >
+             <div className="flex items-center">
+
           <PenSquare className="h-4 w-4 mr-2" />
           Edit
-        </DropdownMenuItem>
+             </div>
+        </div>
         <DropdownMenuSeparator />
             <ConfirmModal onConfirm={() => deletePost(postId, router)}>
           <div className=
