@@ -1,14 +1,16 @@
 "use client";
 
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase-config";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, ElementRef } from "react";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import TextareaAutoSize from "react-textarea-autosize";
 
 interface ContentItem {
-  type: string; 
+  type: string;
   content: string;
 }
 
@@ -23,12 +25,17 @@ interface DocumentProps {
 
 const EditPage = ({ params }: { params: { postId: string } }) => {
   const [post, setPost] = useState<DocumentProps | null>(null);
-  const [updatedPost, setUpdatedPost] = useState(post?.Content);
-  const [updatedPostTitle, setUpdatedPostTitle] = useState();
+  const [updatedPostTitle, setUpdatedPostTitle] = useState<string>("");
+  const [updatedPostContent, setUpdatedPostContent] = useState<string>("");
+
+  const inputRef = useRef<ElementRef<"textarea">>(null);
+  const [isEditing, setIsEditing] = useState(false);
+
   const Editor = useMemo(
     () => dynamic(() => import("@/components/editor"), { ssr: false }),
     []
   );
+  const router = useRouter();
 
   const postRef = doc(db, "posts", params.postId);
 
@@ -37,8 +44,10 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
       const docSnap = await getDoc(postRef);
 
       if (docSnap.exists()) {
-        console.log(docSnap.data());
-        setPost(docSnap.data() as DocumentProps);
+        const postData = docSnap.data() as DocumentProps;
+        setPost(postData);
+        setUpdatedPostTitle(postData.Title);
+        setUpdatedPostContent(JSON.stringify(postData?.Content)); // Store as string
       } else {
         console.log("No such document!");
       }
@@ -51,21 +60,80 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
     getPost();
   }, []);
 
-  const onChange = () => {
-    setUpdatedPost(updatedPost);
+  const enableInput = () => {
+    setIsEditing(true);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+
+  const disableInput = () => setIsEditing(false);
+
+  const onInput = (value: string) => {
+    setUpdatedPostTitle(value);
+  };
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      disableInput();
+    }
+  };
+
+  const onChange = (value: string) => {
+    setUpdatedPostContent(value); // Update the content as string
+  };
+
+  const handleSave = async () => {
+    if (!post) return;
+
+    try {
+      const parsedContent: ContentItem[] = JSON.parse(updatedPostContent); // Convert string back to ContentItem[]
+      await updateDoc(postRef, {
+        Title: updatedPostTitle,
+        Content: parsedContent,
+      });
+      router.back(); // Redirect back after save
+    } catch (error) {
+      console.error("Error updating document:", error);
+    }
+  };
+
+  const onDiscard = () => {
+    router.back();
   };
 
   return (
     <div className="pb-60 flex flex-col items-center gap-10 px-10">
-        <Button>Save</Button>
-        <h1 className="w-full text-4xl font-semibold">{post?.Title}</h1>
-        <div className="-ml-12">
-        <Editor
-          onChange={onChange}
-          initialContent={post?.Content}
-        />
-        </div>
+      <div className="flex w-full justify-between">
+        <Button onClick={onDiscard}>Discard</Button>
+        <Button onClick={handleSave}>Save</Button>
       </div>
+
+      <div className="flex flex-col items-center">
+        {isEditing ? (
+          <TextareaAutoSize
+            ref={inputRef}
+            onBlur={disableInput}
+            onKeyDown={onKeyDown}
+            value={updatedPostTitle || ""}
+            onChange={(e) => onInput(e.target.value)}
+            className="text-3xl md:max-w-2xl lg:max-w-3xl sm:text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+          />
+        ) : (
+          <div
+            onClick={enableInput}
+            className="pb-[11.5px] md:max-w-2xl lg:max-w-3xl text-3xl sm:text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
+          >
+            {updatedPostTitle || ""}
+          </div>
+        )}
+      </div>
+
+      <div className="-ml-12">
+        <Editor onChange={onChange} initialContent={updatedPostContent} />
+      </div>
+    </div>
   );
 };
 
