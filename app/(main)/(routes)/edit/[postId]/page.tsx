@@ -26,7 +26,7 @@ interface DocumentProps {
 const EditPage = ({ params }: { params: { postId: string } }) => {
   const [post, setPost] = useState<DocumentProps | null>(null);
   const [updatedPostTitle, setUpdatedPostTitle] = useState<string>("");
-  const [updatedPostContent, setUpdatedPostContent] = useState<string>("");
+  const [updatedPostContent, setUpdatedPostContent] = useState<string | any>("");
 
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -47,7 +47,7 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
         const postData = docSnap.data() as DocumentProps;
         setPost(postData);
         setUpdatedPostTitle(postData.Title);
-        setUpdatedPostContent(JSON.stringify(postData?.Content)); // Store as string
+        setUpdatedPostContent(postData.Content); // Convert ContentItem[] to string
       } else {
         console.log("No such document!");
       }
@@ -81,17 +81,17 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
   };
 
   const onChange = (value: string) => {
-    setUpdatedPostContent(value); // Update the content as string
+    setUpdatedPostContent(value); // Update the content as a string
   };
 
   const handleSave = async () => {
     if (!post) return;
 
     try {
-      const parsedContent: ContentItem[] = JSON.parse(updatedPostContent); // Convert string back to ContentItem[]
+      // const parsedContent: ContentItem[] = JSON.parse(updatedPostContent); // Convert string back to ContentItem[]
       await updateDoc(postRef, {
         Title: updatedPostTitle,
-        Content: parsedContent,
+        Content: updatedPostContent,
       });
       router.back(); // Redirect back after save
     } catch (error) {
