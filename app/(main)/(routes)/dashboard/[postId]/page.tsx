@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import { auth } from "@/firebase/firebase-config";
 import { Menu } from "@/app/(main)/_components/menu";
 import { Share } from "@/app/(main)/_components/share";
+import { toast } from "sonner";
 
 interface ContentItem {
   type: string; 
@@ -22,6 +23,7 @@ interface DocumentProps {
   Author: string;
   AuthorId: string;
   AuthorImg: string;
+  CreatedAt: any;
 }
 
 const PostPage = ({ params }: { params: { postId: string } }) => {
@@ -42,9 +44,10 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
         setPost(docSnap.data() as DocumentProps);
       } else {
         console.log("No such document!");
+        toast.error("No such document!");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      toast.error("Error fetching data");
     }
   };
 
@@ -52,6 +55,53 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
     getPost();
   }, []);
 
+  const timestamp = post?.CreatedAt; // Replace with your actual timestamp object
+
+  let date;
+  let displayDate;
+
+  if (
+    timestamp &&
+    timestamp.seconds !== undefined &&
+    timestamp.nanoseconds !== undefined
+  ) {
+    date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+  } else {
+    console.error("Timestamp is not properly defined:", timestamp);
+    date = new Date(); // Fallback to the current date and time if timestamp is not defined
+  }
+
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const isSameDay =
+    date.getDate() === now.getDate() &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear();
+  const isYesterday =
+    date.getDate() === now.getDate() - 1 &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear();
+
+  if (diffInSeconds < 60) {
+    displayDate = "Just now";
+  } else if (diffInMinutes < 60) {
+    displayDate = `${diffInMinutes} min${diffInMinutes > 1 ? "s" : ""} ago`;
+  } else if (isSameDay) {
+    displayDate = date.toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  } else if (isYesterday) {
+    displayDate = "yesterday";
+  } else {
+    displayDate = date.toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  }
   const onChange = (content: string) => {
     console.log(post);
   };
@@ -65,15 +115,16 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
             <AvatarFallback>DT</AvatarFallback>
           </Avatar>
           <h2 className="text-lg font-semibold">{post?.Author}</h2>
+          <sub>{displayDate}</sub>
         </div>
         <div className="flex items-center space-evenly">
           <Share postId={params.postId} />
           {post?.AuthorId === auth?.currentUser?.uid && <Menu postId={params.postId}/>}
         </div>
       </div>
-      <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-        <h1 className="w-full text-4xl font-semibold">{post?.Title}</h1>
-        <div className="-ml-12">
+      <div className="md:max-w-3xl lg:max-w-4xl mx-auto bg-[#1f1f1f] flex flex-col justify-start rounded-md py-2 px-1">
+        <h1 className="w-full text-4xl font-semibold ml-12">{post?.Title}</h1>
+        <div>
         <Editor
           editable={false}
           onChange={onChange}
