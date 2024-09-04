@@ -12,7 +12,7 @@ import { Share } from "@/app/(main)/_components/share";
 import { toast } from "sonner";
 
 interface ContentItem {
-  type: string; 
+  type: string;
   content: string;
 }
 
@@ -114,22 +114,26 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
             <AvatarImage src={post?.AuthorImg} alt="display picture" />
             <AvatarFallback>DT</AvatarFallback>
           </Avatar>
-          <h2 className="text-lg font-semibold">{post?.Author}</h2>
-          <sub>{displayDate}</sub>
+          <div className="flex flex-col justify-center">
+            <h2 className="text-lg font-semibold">{post?.Author}</h2>
+            <sub>{displayDate}</sub>
+          </div>
         </div>
         <div className="flex items-center space-evenly">
           <Share postId={params.postId} />
-          {post?.AuthorId === auth?.currentUser?.uid && <Menu postId={params.postId}/>}
+          {post?.AuthorId === auth?.currentUser?.uid && (
+            <Menu postId={params.postId} />
+          )}
         </div>
       </div>
-      <div className="md:max-w-3xl lg:max-w-4xl mx-auto bg-[#1f1f1f] flex flex-col justify-start rounded-md py-2 px-1">
+      <div className="md:max-w-3xl lg:max-w-4xl mx-auto h-full dark:bg-[#1f1f1f] flex flex-col justify-start rounded-md p-4 gap-2">
         <h1 className="w-full text-4xl font-semibold ml-12">{post?.Title}</h1>
         <div>
-        <Editor
-          editable={false}
-          onChange={onChange}
-          initialContent={post?.Content}
-        />
+          <Editor
+            editable={false}
+            onChange={onChange}
+            initialContent={post?.Content}
+          />
         </div>
       </div>
     </div>

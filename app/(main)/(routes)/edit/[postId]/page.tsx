@@ -8,6 +8,8 @@ import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import TextareaAutoSize from "react-textarea-autosize";
+import { toast } from 'sonner';
+
 
 interface ContentItem {
   type: string;
@@ -84,20 +86,37 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
     setUpdatedPostContent(value); // Update the content as a string
   };
 
-  const handleSave = async () => {
-    if (!post) return;
 
+const handleSave = async () => {
+  if (!post) return;
+
+  const promise = new Promise<void>(async (resolve, reject) => {
     try {
-      // const parsedContent: ContentItem[] = JSON.parse(updatedPostContent); // Convert string back to ContentItem[]
       await updateDoc(postRef, {
         Title: updatedPostTitle,
         Content: updatedPostContent,
       });
-      router.back(); // Redirect back after save
+      resolve(); 
     } catch (error) {
-      console.error("Error updating document:", error);
+      reject(error); 
     }
-  };
+  });
+
+  toast.promise(promise, {
+    loading: "Saving changes...",
+    success: "Changes saved successfully!",
+    error: "Failed to save changes. Please try again.",
+  });
+
+  promise
+    .then(() => {
+      router.back();  // Redirect back after save
+    })
+    .catch((error) => {
+      console.error("Error updating document:", error);
+    });
+};
+
 
   const onDiscard = () => {
     router.back();
