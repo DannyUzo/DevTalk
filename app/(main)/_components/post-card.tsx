@@ -12,11 +12,17 @@ import { Menu } from "./menu";
 import { auth } from "@/firebase/firebase-config";
 import { Share } from "@/app/(main)/_components/share";
 
+interface ContentItem {
+  type: string;
+  content: string;
+}
+
 interface CardProps {
   Title: string;
   Author: string;
   AuthorImg: string;
   AuthorId: string;
+  Content: ContentItem[];
   CreatedAt: any;
   Id: string;
 }
@@ -26,6 +32,7 @@ export const PostCard = ({
   Author,
   AuthorImg,
   AuthorId,
+  Content,
   CreatedAt,
   Id,
 }: CardProps) => {
@@ -35,7 +42,7 @@ export const PostCard = ({
     router.push(`/dashboard/${Id}`);
   };
 
-  const timestamp = CreatedAt; // Replace with your actual timestamp object
+  const timestamp = CreatedAt; 
 
   let date;
   let displayDate;
@@ -83,9 +90,23 @@ export const PostCard = ({
     });
   }
 
+  const extractFirst15Words = (contentArray: any[]): string => {
+    const allText = contentArray
+      .flatMap((item) => item.content.map((contentItem: { text: any; }) => contentItem.text))
+      .join(" ");
+  
+    const words = allText.split(" ");
+  
+    if (words.length > 20) {
+      return words.slice(0, 20).join(" ") + "...";
+    }
+  
+    return allText;
+  };
+
   return (
-    <Card className="w-40 sm:w-[480px] flex flex-col justify-between gap-5">
-      <CardHeader>
+    <Card className="w-[17rem] sm:w-[480px] flex flex-col justify-between">
+      <CardHeader className="p-3">
         <div className="flex gap-2 justify-between">
           <div className="flex gap-2 items-center">
             <Avatar className="w-10 h-10">
@@ -105,12 +126,12 @@ export const PostCard = ({
         <Separator />
         <CardTitle
           onClick={viewpost}
-          className="hover:underline cursor-pointer tracking-wide"
+          className="hover:underline cursor-pointer tracking-wide text-lg"
         >
           {Title}
         </CardTitle>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent><p className="dark:text-[#e8e8e8] text-sm ">{extractFirst15Words(Content)}</p></CardContent>
     </Card>
   );
 };

@@ -5,15 +5,20 @@ import { Auth } from "@/components/providers/auth-provider";
 import { redirect } from "next/navigation";
 import { useContext } from "react";
 import { db } from "@/firebase/firebase-config";
-import { getDocs, collection, orderBy } from "firebase/firestore";
+import { collection, query, getDocs, orderBy } from "firebase/firestore";
 import { toast } from "sonner";
 import { SkeletonCard } from "@/components/skeleton-card";
 import { PostCard } from "../../_components/post-card";
 
+interface ContentItem {
+  type: string;
+  content: string;
+}
+
 interface DocumentProps {
   id: string;
   Title: string;
-  Content: string;
+  Content: ContentItem[];
   Author: string;
   AuthorId: string;
   AuthorImg: string;
@@ -25,13 +30,12 @@ const MainPage = () => {
   const [allPosts, setAllPosts] = useState<DocumentProps[]>([]);
 
 
-
   const collectionRef = collection(db, "posts");
   const getAllPosts = async (): Promise<void> => {
     try {
-      const data = await getDocs(collectionRef);
+      const postsQuery = query(collectionRef, orderBy("CreatedAt", "desc"));
+      const data = await getDocs(postsQuery);
       const posts: DocumentProps[] = data.docs.map((doc) => {
-        // Use the DocumentProps type for `doc.data()`
         const docData = doc.data() as DocumentProps;
         return { ...docData, id: doc.id };
       });
@@ -42,6 +46,7 @@ const MainPage = () => {
       toast.error("Failed to fetch data");
     }
   };
+  
 
   useEffect(() => {
     getAllPosts();
