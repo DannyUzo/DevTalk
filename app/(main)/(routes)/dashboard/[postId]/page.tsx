@@ -112,7 +112,7 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
         <div className="flex items-center gap-4">
           <Avatar className="w-10 h-10">
             <AvatarImage src={post?.AuthorImg} alt="display picture" />
-            <AvatarFallback>DeT</AvatarFallback>
+            <AvatarFallback>DT</AvatarFallback>
           </Avatar>
           <div className="flex flex-col justify-center">
             <h2 className="text-lg font-semibold">{post?.Author}</h2>
