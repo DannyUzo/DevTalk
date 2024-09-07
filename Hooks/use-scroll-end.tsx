@@ -7,10 +7,10 @@ export const useScrollEnd = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = document.documentElement.scrollTop + document.documentElement.offsetHeight;
+      const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      if (scrollPosition >= documentHeight) { // Slight offset for precision
+      if (scrollPosition >= documentHeight - 10) { // Slight offset for precision
         setScrolledEnd(true);
       } else {
         setScrolledEnd(false);
