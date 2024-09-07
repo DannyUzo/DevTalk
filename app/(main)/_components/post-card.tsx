@@ -106,7 +106,7 @@ export const PostCard = ({
 
   return (
     <Card className="w-[17rem] sm:w-[480px] flex flex-col justify-between">
-      <CardHeader className="p-3">
+      <CardHeader className="px-4 pt-3 pb-0">
         <div className="flex gap-2 justify-between">
           <div className="flex gap-2 items-center">
             <Avatar className="w-10 h-10">
@@ -131,7 +131,7 @@ export const PostCard = ({
           {Title}
         </CardTitle>
       </CardHeader>
-      <CardContent><p className="dark:text-[#e8e8e8] text-sm ">{extractFirst15Words(Content)}</p></CardContent>
+      <CardContent className="px-4"><p className="dark:text-[#e8e8e8] text-sm ">{extractFirst15Words(Content)}</p></CardContent>
     </Card>
   );
 };
