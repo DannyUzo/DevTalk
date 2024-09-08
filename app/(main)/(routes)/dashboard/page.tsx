@@ -61,7 +61,7 @@ const MainPage = () => {
 
   const loadMore = async (): Promise<void> => {
     try {
-      if (!lastVisibleDoc || !hasMore) return; // Ensure we have a last visible document to paginate from and more posts to load
+      if (!lastVisibleDoc || !hasMore) return;
       setLoading(true);
   
       const postsQuery = query(
