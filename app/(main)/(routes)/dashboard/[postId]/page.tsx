@@ -115,7 +115,7 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
             <AvatarFallback>DT</AvatarFallback>
           </Avatar>
           <div className="flex flex-col justify-center">
-            <h2 className="text-lg font-semibold">{post?.Author}</h2>
+            <h2 className="text-lg tracking-wide">{post?.Author}</h2>
             <sub>{displayDate}</sub>
           </div>
         </div>
@@ -126,8 +126,8 @@ const PostPage = ({ params }: { params: { postId: string } }) => {
           )}
         </div>
       </div>
-      <div className="md:max-w-3xl lg:max-w-4xl mx-auto h-full dark:bg-[#1f1f1f] flex flex-col justify-start rounded-md p-4 gap-2">
-        <h1 className="w-full text-4xl font-semibold ml-12">{post?.Title}</h1>
+      <div className="md:max-w-3xl lg:max-w-4xl mx-auto h-full dark:bg-[#1f1f1f] flex flex-col justify-start rounded-md sm:py-9 sm:pr-9 gap-2">
+        <h1 className="w-full text-lg sm:text-2xl md:text-3xl lg:text-4xl sm:font-semibold ml-12">{post?.Title}</h1>
         <div>
           <Editor
             editable={false}
