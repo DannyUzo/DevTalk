@@ -6,20 +6,24 @@ export const useScrollEnd = () => {
   const [scrolledEnd, setScrolledEnd] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      if (scrollPosition >= documentHeight - 10) { // Slight offset for precision
+    const handleScrollEnd = () => {
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const threshold = 100; // 100px before the bottom
+      const bottomPosition = document.documentElement.offsetHeight - threshold;
+    
+      console.log("Scroll Position:", scrollPosition);
+      console.log("Bottom Position:", bottomPosition);
+    
+      if (scrollPosition >= bottomPosition) {
         setScrolledEnd(true);
       } else {
         setScrolledEnd(false);
       }
     };
+    
+    window.addEventListener("scroll", handleScrollEnd);  // Add the listener only once
 
-    window.addEventListener("scroll", handleScroll);  // Add the listener only once
-
-    return () => window.removeEventListener("scroll", handleScroll);  // Clean up
+    return () => window.removeEventListener("scroll", handleScrollEnd);  // Clean up
   }, []);  // Empty dependency array to run only once
 
   return scrolledEnd;  // Return the state directly

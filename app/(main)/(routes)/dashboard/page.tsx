@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Auth } from "@/components/providers/auth-provider";
 import { redirect } from "next/navigation";
 import { useContext } from "react";
@@ -11,6 +11,7 @@ import { SkeletonCard } from "@/components/skeleton-card";
 import { PostCard } from "../../_components/post-card";
 import { Button } from "@/components/ui/button";
 import { useScrollEnd } from "@/Hooks/use-scroll-end";
+import { cn } from "@/lib/utils";
 
 interface ContentItem {
   type: string;
@@ -33,8 +34,7 @@ const MainPage = () => {
   const [lastVisibleDoc, setLastVisibleDoc] = useState<any>(null); 
   const [loading, setLoading] = useState(false); 
   const [hasMore, setHasMore] = useState(true);
-
-  const scrolledEnd = useScrollEnd();
+  const EndRef = useRef<any>();
 
   const collectionRef = collection(db, "posts");
 
@@ -102,6 +102,14 @@ const MainPage = () => {
     getAllPosts();
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      console.log('entry', entry);
+      console.log('EndRef', EndRef.current)
+    })
+    observer.observe(EndRef.current)
+  },[]);
   
   if (!isAuthenticated) {
     return redirect("/");
@@ -133,14 +141,17 @@ const MainPage = () => {
         ))}
       </div>
       <div>
-      {hasMore && scrolledEnd ? (
+      <div className="mt-12">
+
+        <p ref={EndRef}>End of the line</p>
+      {hasMore ? (
         <Button onClick={loadMore} disabled={loading}>
           {loading ? "Loading..." : "Load more"}
         </Button>
       ) : (
         <p>No more posts to load</p> // Display this message when no more posts are available
       )}
-      {scrolledEnd && ( <p>Scrolled</p> )}
+      </div>
       </div>
     </div>
   );
