@@ -40,7 +40,7 @@ const MainPage = () => {
 
   const getAllPosts = async (): Promise<void> => {
     try {
-      setLoading(true); // Set loading to true when fetching
+      setLoading(true);
       const postsQuery = query(collectionRef, orderBy("CreatedAt", "desc"), limit(5));
       const data = await getDocs(postsQuery);
       const posts: DocumentProps[] = data.docs.map((doc) => {
@@ -102,20 +102,13 @@ const MainPage = () => {
     getAllPosts();
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      console.log('entry', entry);
-      console.log('EndRef', EndRef.current)
-    })
-    observer.observe(EndRef.current)
-  },[]);
+
   
   if (!isAuthenticated) {
     return redirect("/");
   }
 
-  if (loading) {
+  if (loading || allPosts.length === 0) {
     return (
       <div>
         <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10">
