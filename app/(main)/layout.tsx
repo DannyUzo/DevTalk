@@ -12,6 +12,7 @@ import { useContext, useRef, useState } from "react";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { Navbar } from "./_components/navbar";
 import { cn } from "@/lib/utils";
+import { SearchCommand } from "@/components/search-command";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useContext(Auth);
@@ -49,11 +50,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <Navigation collapsePanel={collapsePanel} />
       </ResizablePanel>
-      <ResizableHandle withHandle className={cn(isCollapsed && "hidden")} />
+      <ResizableHandle withHandle className={cn(isCollapsed && "hidden transition-all")} />
       <ResizablePanel defaultSize={75}>
         <main className="flex h-[100vh] w-full flex-col overflow-y-scroll">
           <Navbar isCollapsed={isCollapsed} expandPanel={expandPanel} />
-          <div className="mt-20">{children}</div>
+          <div className="mt-20">
+            <SearchCommand />
+            {children}
+          </div>
         </main>
       </ResizablePanel>
     </ResizablePanelGroup>
