@@ -25,8 +25,11 @@ export const Navigation = ({ collapsePanel }: Props) => {
   }, [collapsePanel]);
 
   return (
-    <aside className="group/sidebar overflow-y-auto flex h-full justify-between flex-col z-[99999]">
+    <aside className="group/sidebar overflow-y-auto flex h-full justify-between flex-col z-[99999] transition-transform duration-300 ease-in-out">
       <div>
+        <div className="flex items-center justify-center p-6">
+          <Logo />
+        </div>
         <div
           onClick={handleClick}
           role="button"
@@ -35,9 +38,6 @@ export const Navigation = ({ collapsePanel }: Props) => {
           )}
         >
           <ChevronsLeft className="h-6 w-6" aria-label="Collapse panel" />
-        </div>
-        <div className="flex h-full items-center justify-center p-6">
-          <Logo />
         </div>
       </div>
       <div className="flex flex-col w-full items-center gap-y-5 py-3 ">
