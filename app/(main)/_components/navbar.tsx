@@ -23,9 +23,8 @@ export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
         <Menu onClick={expandPanel} />
         <Logo />
       </div>
-      <div className="flex gap-3 w-2/3">
-      <Search />
-      uzodinmablessing1706@gmail.com
+      <div className="flex gap-3">
+        <Search />
         <ModeToggleButton />
         <UserButton />
       </div>
