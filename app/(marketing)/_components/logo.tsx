@@ -9,11 +9,11 @@ const font = Poppins({
 
 export const Logo = () => {
   return (
-    <div className="hidden items-center shrink gap-x-2 text-xs md:text-md">
+    <div className="hidden items-center shrink gap-x-2 sm:flex text-xs sm:text-lg">
       <p className={cn("font-semibold", font.className)}>
-        <span>{"<"}</span>
+        <span>{"< "}</span>
         DevTalk
-        <span>{"/>"}</span>
+        <span>{" />"}</span>
       </p>
     </div>
   );
