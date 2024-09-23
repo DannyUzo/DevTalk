@@ -54,7 +54,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <ResizablePanel defaultSize={75}>
         <main className="flex h-[100vh] w-full flex-col overflow-y-scroll">
           <Navbar isCollapsed={isCollapsed} expandPanel={expandPanel} />
-          <div className="mt-20">
+          <div className="mt-10">
             <SearchCommand />
             {children}
           </div>
