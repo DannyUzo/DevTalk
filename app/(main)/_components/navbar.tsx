@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 import { ModeToggleButton } from "./mode-toggle-button";
 import { useMediaQuery } from "usehooks-ts";
 import Search from "./search";
+import { MobileNav } from "./mobile-nav";
 
 interface NavbarProps {
   expandPanel: () => void;
@@ -17,8 +18,8 @@ export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
   return (
     <div
       className={cn(
-        "w-full p-2 flex items-center justify-between fixed  backdrop-filter backdrop-grayscale backdrop-blur-4xl z-50",
-        isMobile && "justify-evenly"
+        "w-full p-2 flex items-center justify-between fixed  backdrop-filter backdrop-grayscale backdrop-blur-xl z-50",
+        isMobile && "flex justify-evenly items-center"
       )}
     >
       <div
@@ -27,18 +28,23 @@ export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
           isCollapsed && "flex cursor-pointer gap-x-3"
         )}
       >
-        {!isMobile && <Menu onClick={expandPanel} />}
-        {isMobile && <Menu />}
-        <Logo />
+        {!isMobile && (
+          <>
+            <Menu onClick={expandPanel} />
+            <Logo />
+          </>
+        )}
+        {isMobile && <MobileNav />}
       </div>
       <div
         className={cn(
-          "flex gap-3 w-full justify-between",
-          isCollapsed && "w-5/6 flex justify-between"
+          isMobile && "flex gap-3 w-full justify-between items-center",
+          isCollapsed && "flex gap-2",
+          !isCollapsed && "w-full flex justify-between"
         )}
       >
         <Search />
-        <div className="flex">
+        <div className={cn("flex items-center")}>
           <ModeToggleButton />
           <UserButton />
         </div>
