@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Auth } from "@/components/providers/auth-provider";
 import { redirect } from "next/navigation";
 import { useContext } from "react";
@@ -34,7 +34,6 @@ const MainPage = () => {
   const [lastVisibleDoc, setLastVisibleDoc] = useState<any>(null); 
   const [loading, setLoading] = useState(false); 
   const [hasMore, setHasMore] = useState(true);
-  const EndRef = useRef<any>();
 
   const collectionRef = collection(db, "posts");
 
@@ -112,7 +111,7 @@ const MainPage = () => {
     return (
       <div>
         <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10">
-          <div className="space-y-4 pl-8 pt-4 w-full flex flex-col items-center justify-center">
+          <div className="space-y-4 pt-4 w-full flex flex-col items-center justify-center">
             <SkeletonCard />
             <SkeletonCard />
             <SkeletonCard />
@@ -136,7 +135,6 @@ const MainPage = () => {
       <div>
       <div className="mt-12">
 
-        <p ref={EndRef}>End of the line</p>
       {hasMore ? (
         <Button onClick={loadMore} disabled={loading}>
           {loading ? "Loading..." : "Load more"}
