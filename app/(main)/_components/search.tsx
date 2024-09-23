@@ -10,7 +10,7 @@ const Search = () => {
     <div
       role="button"
       onClick={search.onOpen}
-      className={cn("flex bg-[#959595] dark:bg-[#121212] items-center w-[30%] max-w-[240px] p-2 rounded", isMobile && "w-5/6 rounded-md py-0")}
+      className={cn("flex bg-[#bababa] dark:bg-[#121212] items-center w-60  p-2 rounded", isMobile && "w-1/2 h-8 rounded-md ml-2")}
     > {isMobile ? ( 
 <p className="font-sans text-muted-foreground text-xs">Search...</p>
      ) : (
