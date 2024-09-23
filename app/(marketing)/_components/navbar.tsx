@@ -5,13 +5,15 @@ import { useScrollTop } from '@/Hooks/use-scroll-top'
 import { cn } from '@/lib/utils'
 import { Logo } from './logo'
 import { SignUpButton } from '@/firebase/components/useSignUpButton'
+import { useMediaQuery } from 'usehooks-ts'
 
 export const Navbar = () => {
+  const isMobile = useMediaQuery("(max-width:680px");
   const scrolled = useScrollTop();
   return (
     <div className={ cn('flex items-center justify-between py-3 px-8 fixed top-0 bg-white dark:bg-[#1F1F1F] z-50 w-full', scrolled && 'border-b dark:border-2 shadow')}>
       <div>
-       <Logo/>
+      {!isMobile && (<Logo />)}
       </div>
       <div className='flex gap-3 items-center w-full sm:w-auto justify-between'>
         <SignUpButton name='Sign In'/>
