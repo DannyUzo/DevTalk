@@ -46,8 +46,8 @@ export const UserButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full" asChild>
         <Avatar>
-          <AvatarImage src={user?.imgUrl || undefined} alt="user"/>
-          <AvatarFallback>{user?.initials}</AvatarFallback>
+          <AvatarImage className="w-7 h-7" src={user?.imgUrl || undefined} alt="user"/>
+          <AvatarFallback className="w-8 h-8">{user?.initials}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
