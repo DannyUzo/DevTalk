@@ -117,13 +117,12 @@ const handleSave = async () => {
     });
 };
 
-
   const onDiscard = () => {
     router.back();
   };
 
   return (
-    <div className="pb-60 flex flex-col items-center gap-10 px-10">
+    <div className="pb-60 flex flex-col items-center gap-10 px-10 mt-10">
       <div className="flex w-full justify-between">
         <Button onClick={onDiscard}>Discard</Button>
         <Button onClick={handleSave}>Save</Button>
@@ -149,7 +148,7 @@ const handleSave = async () => {
         )}
       </div>
 
-      <div className="-ml-12">
+      <div className="-ml-12 md:max-w-2xl lg:max-w-3xl">
         <Editor onChange={onChange} initialContent={updatedPostContent} />
       </div>
     </div>
