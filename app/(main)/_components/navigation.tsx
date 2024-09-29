@@ -7,6 +7,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { ChevronsLeft, FolderClock, Home, PenLine } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserHub } from "@/firebase/components/userHub";
 interface Props {
   collapsePanel: () => void;
 }
@@ -85,6 +86,7 @@ export const Navigation = ({ collapsePanel }: Props) => {
         </Link>
       </div>
       <div className="md:p-10">
+        <UserHub />
       </div>
     </aside>
   );
