@@ -44,7 +44,7 @@ export const Navbar = ({ expandPanel, isCollapsed }: NavbarProps) => {
         )}
       >
         <Search />
-        <div className={cn("flex items-center")}>
+        <div className={cn("flex items-center gap-2")}>
           <ModeToggleButton />
           <UserButton />
         </div>
