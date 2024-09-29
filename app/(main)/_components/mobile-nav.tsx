@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { UserHub } from "@/firebase/components/userHub";
 
 export const MobileNav = () => {
   const pathname = usePathname();
@@ -20,7 +21,7 @@ export const MobileNav = () => {
         <SheetTrigger asChild>
           <Menu />
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent side="left" className="flex flex-col justify-between">
           <SheetHeader>
             <div className="flex  items-center justify-center p-6">
               <Logo />
@@ -82,7 +83,9 @@ export const MobileNav = () => {
               </span>
             </Link>
           </div>
-          <div className="md:p-10"></div>
+          <div className="md:p-10">
+            <UserHub />
+          </div>
         </SheetContent>
       </Sheet>
     </>
