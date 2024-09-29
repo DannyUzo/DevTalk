@@ -11,6 +11,8 @@ import { SignOutButton } from "./signOut";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useMediaQuery } from "usehooks-ts";
 
 interface UserData {
   imgUrl?: string;
@@ -20,6 +22,7 @@ interface UserData {
 }
 
 export const UserButton = () => {
+  const isMobile = useMediaQuery("(max-width: 680px)");
   const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
@@ -44,17 +47,17 @@ export const UserButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full" asChild>
+      <DropdownMenuTrigger className="h-8 w-8" asChild>
         <Avatar>
-          <AvatarImage className="w-7 h-7" src={user?.imgUrl || undefined} alt="user"/>
-          <AvatarFallback className="w-8 h-8">{user?.initials}</AvatarFallback>
+          <AvatarImage src={user?.imgUrl || undefined} alt="user"/>
+          <AvatarFallback>{user?.initials}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <div className="flex p-2 gap-5">
           <Avatar className="w-12 h-12 rounded-full">
             <AvatarImage src={user?.imgUrl || undefined} alt="" />
-            <AvatarFallback className="rounded-full w-10 h-10">{user?.initials}</AvatarFallback>
+            <AvatarFallback>{user?.initials}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
             <span className="font-semibold text-lg">{user?.displayName}</span>
