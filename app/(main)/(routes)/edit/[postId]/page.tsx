@@ -28,7 +28,7 @@ interface DocumentProps {
 const EditPage = ({ params }: { params: { postId: string } }) => {
   const [post, setPost] = useState<DocumentProps | null>(null);
   const [updatedPostTitle, setUpdatedPostTitle] = useState<string>("");
-  const [updatedPostContent, setUpdatedPostContent] = useState<string | any>("");
+  const [updatedPostContent, setUpdatedPostContent] = useState<string | any>({});
 
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -49,7 +49,7 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
         const postData = docSnap.data() as DocumentProps;
         setPost(postData);
         setUpdatedPostTitle(postData.Title);
-        setUpdatedPostContent(postData.Content); // Convert ContentItem[] to string
+        setUpdatedPostContent(postData.Content);
       } else {
         console.log("No such document!");
       }
@@ -87,14 +87,33 @@ const EditPage = ({ params }: { params: { postId: string } }) => {
   };
 
 
+  const cleanContent = (contentArray: any[]) => {
+    return contentArray.map(block => {
+      if (block.type === "image") {
+        // For image, use the URL or a placeholder
+        return {
+          ...block,
+          content: block.props.url ? block.props.url : 'No image URL',
+        };
+      } else if (block.content) {
+        return block;
+      }
+
+      return null;
+    }).filter(Boolean);
+  };
+  
+
 const handleSave = async () => {
   if (!post) return;
+
+  const cleanedContent = cleanContent(updatedPostContent);
 
   const promise = new Promise<void>(async (resolve, reject) => {
     try {
       await updateDoc(postRef, {
         Title: updatedPostTitle,
-        Content: updatedPostContent,
+        Content: cleanedContent,
       });
       resolve(); 
     } catch (error) {
@@ -114,12 +133,15 @@ const handleSave = async () => {
     })
     .catch((error) => {
       console.error("Error updating document:", error);
+      console.log(updatedPostContent)
     });
 };
 
   const onDiscard = () => {
     router.back();
   };
+
+
 
   return (
     <div className="pb-60 flex flex-col items-center gap-10 px-10 mt-10">
