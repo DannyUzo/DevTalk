@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 // }
 const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("Untitled");
-  const [postContent, setPostContent] = useState("");
+  const [postContent, setPostContent] = useState<string | any>("");
 
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -34,20 +34,37 @@ const CreatePost = () => {
     []
   );
 
+  const cleanContent = (contentArray: any[]) => {
+    return contentArray.map(block => {
+      if (block.type === "image") {
+        return {
+          ...block,
+          content: block.props.url ? block.props.url : 'No image URL',
+        };
+      } else if (block.content) {
+        return block;
+      }
+
+      return null;
+    }).filter(Boolean);
+  };
+  
+
   const onPost = async () => {
+    const cleanedContent = cleanContent(postContent);
     const promise = new Promise<void>(async (resolve, reject) => {
       try {
         await addDoc(collectionRef, {
           Title: postTitle,
-          Content: postContent,
+          Content: cleanedContent,
           Author: author,
           AuthorImg: authorImg,
           AuthorId: authorId,
           CreatedAt: serverTimestamp(),
         });
-        resolve();  // Resolves if the post is successfully created
+        resolve(); 
       } catch (err) {
-        reject(err);  // Rejects if there's an error creating the post
+        reject(err); 
       }
     });
     
@@ -58,7 +75,7 @@ const CreatePost = () => {
       });
     
       promise.then(() => {
-        Router.push("/dashboard");  // Redirect to the dashboard page on success
+        Router.push("/dashboard");  
         console.log(postContent);
       }).catch((err) => {
         console.log(err);
