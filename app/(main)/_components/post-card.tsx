@@ -92,17 +92,17 @@ export const PostCard = ({
 
   const extractFirst15Words = (contentArray: any[]): string => {
     const allText = contentArray
-      .flatMap((item) => item.content.map((contentItem: { text: any; }) => contentItem.text))
+      .flatMap((item) =>
+        Array.isArray(item.content)
+          ? item.content.map((contentItem: { text: any }) => contentItem.text)
+          : []
+      )
       .join(" ");
   
     const words = allText.split(" ");
-  
-    if (words.length > 20) {
-      return words.slice(0, 20).join(" ") + "...";
-    }
-  
-    return allText;
+    return words.slice(0, 15).join(" ");
   };
+  
 
   return (
     <Card className="w-[17rem] sm:w-[480px] flex flex-col justify-between">

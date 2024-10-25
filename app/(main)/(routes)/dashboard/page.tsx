@@ -12,6 +12,7 @@ import { PostCard } from "../../_components/post-card";
 import { Button } from "@/components/ui/button";
 import { useScrollEnd } from "@/Hooks/use-scroll-end";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface ContentItem {
   type: string;
@@ -30,6 +31,7 @@ interface DocumentProps {
 
 const MainPage = () => {
   const { isAuthenticated } = useContext(Auth);
+  const router = useRouter();
   const [allPosts, setAllPosts] = useState<DocumentProps[]>([]);
   const [lastVisibleDoc, setLastVisibleDoc] = useState<any>(null); 
   const [loading, setLoading] = useState(false); 
@@ -124,7 +126,7 @@ const MainPage = () => {
   }
 
   return (
-    <div className="w-full h-full items-center justify-center p-4">
+    <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div className="flex flex-col items-center justify-center gap-y-4">
         {allPosts.map((post) => (
           <div key={post.id}>
@@ -136,12 +138,12 @@ const MainPage = () => {
       <div className="mt-12">
 
       {hasMore ? (
-        <Button onClick={loadMore} disabled={loading}>
-          {loading ? "Loading..." : "Load more"}
+        <Button size="sm" className="bg-muted-foreground" onClick={loadMore} disabled={loading}>
+          {loading ? "Loading..." : <p>Show more &rarr;</p>}
         </Button>
       ) : (
-        <p>No more posts to load</p> // Display this message when no more posts are available
-      )}
+        <p className="text-xs text-muted text-center">No more posts to load. Why not post something &rarr; <span onClick={() => router.push("/createpost")} className="underline cursor-pointer">create post.</span>✌️</p> // Display this message when no more posts are available
+      )} 
       </div>
       </div>
     </div>

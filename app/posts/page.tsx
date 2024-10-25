@@ -7,12 +7,21 @@ import { db } from "@/firebase/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { toast } from "sonner";
 import { SkeletonCard } from "@/components/skeleton-card";
+import { PostCard } from "../(main)/_components/post-card";
+
+interface ContentItem {
+  type: string;
+  content: string;
+}
 
 interface DocumentProps {
   id: string;
   Title: string;
-  Content: string;
-  content?: any;
+  Content: ContentItem[];
+  Author: string;
+  AuthorId: string;
+  AuthorImg: string;
+  CreatedAt: string;
 }
 const PostsPage = () => {
   const [allPosts, setAllPosts] = useState<DocumentProps[]>([]);
@@ -56,16 +65,15 @@ const PostsPage = () => {
   return (
     <div className="flex flex-col dark:bg-[#1F1F1F] h-full">
       <Navbar />
-      <div className="p-20 mt-20 h-full flex items-center justify-center w-full">
-        <h1>PostsPage</h1>
-        <div>
-          {allPosts.map((post) => (
+      <div className="p-20 mt-10 h-full flex flex-col items-center justify-center w-full gap-4">
+        <div className="flex flex-col gap-y-4">
+          {allPosts.slice(0, 10).map((post) => (
             <div key={post.id}>
-              <h2>{post.Title}</h2>
-              <h2>{post.Content[0].content[0].text}</h2>
+              <PostCard Id={post.id} {...post} />
             </div>
           ))}
         </div>
+        <p>Kindly login to view more.😊</p>
       </div>
     </div>
   );
