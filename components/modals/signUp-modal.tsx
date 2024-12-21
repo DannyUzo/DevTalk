@@ -18,7 +18,7 @@ export const SignUpModal = () => {
           </DialogHeader>
           <div className="flex flex-col gap-y-5 items-center justify-center">
             <SignInWithGoogle />
-            <SignInWithGithub />
+            {/* <SignInWithGithub /> */}
           </div>
         </DialogContent>
       </Dialog>

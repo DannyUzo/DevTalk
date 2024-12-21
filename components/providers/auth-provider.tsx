@@ -16,12 +16,17 @@ export const Auth = createContext<AuthContextType>(initialAuthContext);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    const storedAuth = localStorage.getItem("isAuthenticated");
-    return storedAuth ? JSON.parse(storedAuth) : false;
+    if (typeof window !== "undefined") {
+      const storedAuth = window.localStorage.getItem("isAuthenticated");
+      return storedAuth ? JSON.parse(storedAuth) : false;
+    }
+    return false;
   });
 
+
   useEffect(() => {
-    localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
+    window.localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
+    console.log("Updated localStorage with isAuthenticated:", isAuthenticated); // Debugging
   }, [isAuthenticated]);
 
   const contextValue: AuthContextType = {
@@ -31,4 +36,3 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   return <Auth.Provider value={contextValue}>{children}</Auth.Provider>;
 };
-
