@@ -43,7 +43,7 @@ export const Terms = () => (
           <div className="p-5 flex flex-col">
             <h1 className="font-bold font-sans">◽Relevance:</h1>
             <p className="text-base dark:text-muted-foreground">
-              Ensure that the content stays relevant to the blog's theme and
+              Ensure that the content stays relevant to the blog&apos;s theme and
               purpose. Avoid posting irrelevant or off-topic material.
             </p>
           </div>

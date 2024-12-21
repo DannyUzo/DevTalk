@@ -20,7 +20,7 @@ interface ConfirmModalProps {
             <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your post and remove it's data from our servers.
+                This action cannot be undone. This will permanently delete your post and remove it&apos;s data from our servers.
                 </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

@@ -1,6 +1,6 @@
 "use client"
 
-import { BlockNoteEditor, PartialBlock } from "@blocknote/core";
+import { BlockNoteEditor, BlockSchemaFromSpecs, InlineContentSchemaFromSpecs, PartialBlock, StyleImplementation, StyleSchemaFromSpecs } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
 import { useTheme } from "next-themes";
@@ -25,9 +25,9 @@ interface EditorProps {
 
     const editor: BlockNoteEditor = useBlockNote({
         editable,
-        initialContent: initialContent ? initialContent as PartialBlock[] : undefined,
+        initialContent: initialContent ? initialContent as PartialBlock<BlockSchemaFromSpecs<any>, InlineContentSchemaFromSpecs<{ text: { config: "text"; implementation: any; }; link: { config: "link"; implementation: any; }; }>, StyleSchemaFromSpecs<{ bold: { config: { type: string; propSchema: "boolean"; }; implementation: StyleImplementation; }; italic: { config: { type: string; propSchema: "boolean"; }; implementation: StyleImplementation; }; underline: { config: { type: string; propSchema: "boolean"; }; implementation: StyleImplementation; }; strikethrough: { config: { type: string; propSchema: "boolean"; }; implementation: StyleImplementation; }; code: { config: { type: string; propSchema: "boolean"; }; implementation: StyleImplementation; }; backgroundColor: { config: { type: string; propSchema: "string"; }; implementation: StyleImplementation; }; strike: { config: { type: string; propSchema: "boolean"; }; implementation: StyleImplementation; }; textColor: { config: { type: string; propSchema: "string"; }; implementation: StyleImplementation; }; }>>[] : undefined,
         onEditorContentChange: (editor) => {
-            onChange(editor.topLevelBlocks, null, 2)
+            onChange(JSON.stringify(editor.topLevelBlocks, null, 2))
         },
         uploadFile: handleUpload
     })
